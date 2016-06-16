@@ -1,0 +1,46 @@
+Download AWS tools for Windows powershell:
+http://aws.amazon.com/powershell/
+get-module -ListAvailable
+import-module awspowershell
+get-module
+
+#To see what version of the tools you have installed
+Get-AWSPowerShellVersion
+
+#To list the AWS services available:
+Get-AWSPowerShellVersion -ListServices
+
+###
+#To add a new profile to the AWS SDK
+Set-AWSCredentials -AccessKey AKIAIZ35CCFMDBY3AZ7A -SecretKey 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 -StoreAs ShruthiGW
+Set-AWSCredentials -ProfileName ShruthiGW
+#To check the instances in the account
+Get-EC2Instance -ProfileName ShruthiGW
+#To initialise the defult credentails:
+Initialize-AWSDefaults -ProfileName ShruthiGW -Region us-west-2
+Get-AWSCredentials -ListStoredCredentials
+#To remove
+Clear-AWSCredentials -StoredCredentials MyProfileName
+
+
+#Check the regions available:
+Get-AWSRegion
+
+#Get the commandlet for EC2
+Get-AWSCmdletName –ApiOperation DescribeInstances
+Get-AWSCmdletName –ApiOperation DescribeInstances -Service EC2
+
+
+Get-Command -Module AWSPowerShell | Select-String region
+
+
+#Create S3 bucket:
+New-S3Bucket -BucketName shruthi3 -Region us-west-2
+#List the buckets preset:(shows when its created)
+Get-S3Bucket -profilename shruthiGW
+#Remove a bucket:
+Remove-S3Bucket -BucketName shruthi3 -force
+#Upload object to S3bucket:
+Write-S3Object -BucketName shruthi3 -File "C:\Users\shruthi\Downloads\AWS.txt" -Force
+#Get content of s3bucket:
+Get-S3Object -BucketName shruthi3 
